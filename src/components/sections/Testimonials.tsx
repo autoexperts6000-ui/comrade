@@ -4,9 +4,12 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { testimonials } from '@/data/testimonials';
+import { testimonialsByRegion } from '@/data/testimonials';
+import { useRegion } from '@/context/RegionContext';
 
 export function Testimonials() {
+  const region = useRegion();
+  const testimonials = testimonialsByRegion[region.key];
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
   const [selected, setSelected] = useState(0);
 

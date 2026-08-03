@@ -3,9 +3,12 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { StatCounter } from '@/components/ui/StatCounter';
 import { whyChoosePoints, whyChooseStats } from '@/data/whyChoose';
+import { company } from '@/data/company';
 import { fadeUp, staggerContainer, viewportOnce } from '@/utils/motion';
 
 export function WhyChoose() {
+  const yearsInBusiness = new Date().getFullYear() - company.foundedYear;
+
   return (
     <section id="why-comrade" className="relative overflow-hidden bg-[#0B1120] py-24 lg:py-32">
       <div
@@ -21,7 +24,7 @@ export function WhyChoose() {
         <SectionHeading
           eyebrow="Why Comrade"
           title="Engineering Trust Into Every Line of Code"
-          description="We combine enterprise discipline with startup speed — so you get software that's secure, scalable, and shipped on time."
+          description={`Since ${company.foundedYear}, COMRADE has combined decades of enterprise discipline with modern engineering speed — so you get software that's secure, scalable, and shipped on time.`}
           light
         />
 
@@ -30,8 +33,11 @@ export function WhyChoose() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-16 grid grid-cols-2 gap-8 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur sm:grid-cols-4 lg:p-10"
+          className="mt-16 grid grid-cols-2 gap-8 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur sm:grid-cols-3 lg:grid-cols-5 lg:p-10"
         >
+          <motion.div variants={fadeUp}>
+            <StatCounter value={yearsInBusiness} suffix="+" label="Years in Business" light />
+          </motion.div>
           {whyChooseStats.map((stat) => (
             <motion.div key={stat.label} variants={fadeUp}>
               <StatCounter value={stat.value} suffix={stat.suffix} label={stat.label} light />

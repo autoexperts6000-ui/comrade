@@ -4,7 +4,9 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, Loader2, Send } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { services } from '@/data/services';
-import { company, CTA } from '@/data/company';
+import { CTA } from '@/data/company';
+import { regionList } from '@/data/regions';
+import { useRegion } from '@/context/RegionContext';
 import type { EnquiryFormValues } from '@/types';
 
 const inputClasses =
@@ -13,13 +15,14 @@ const inputClasses =
 const labelClasses = 'mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500';
 
 export function ContactForm() {
+  const region = useRegion();
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<EnquiryFormValues>();
+  } = useForm<EnquiryFormValues>({ defaultValues: { country: region.countryName } });
 
   const onSubmit = async (data: EnquiryFormValues) => {
     // Placeholder submission — replace with real API integration.
@@ -86,7 +89,7 @@ export function ContactForm() {
           <input
             id="phone"
             type="tel"
-            placeholder="+971 5X XXX XXXX"
+            placeholder={region.phones[0]}
             className={inputClasses}
             aria-invalid={!!errors.phone}
             {...register('phone', { required: 'Phone number is required' })}
@@ -100,17 +103,13 @@ export function ContactForm() {
           </label>
           <select
             id="country"
-            defaultValue=""
             className={inputClasses}
             aria-invalid={!!errors.country}
             {...register('country', { required: 'Please select a country' })}
           >
-            <option value="" disabled>
-              Select country
-            </option>
-            {company.regions.map((region) => (
-              <option key={region} value={region}>
-                {region}
+            {regionList.map((r) => (
+              <option key={r.key} value={r.countryName}>
+                {r.countryName}
               </option>
             ))}
             <option value="Other">Other</option>

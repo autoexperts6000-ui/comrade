@@ -3,11 +3,14 @@ import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { GlassCard } from '@/components/ui/GlassCard';
-import { company } from '@/data/company';
+import { useRegion } from '@/context/RegionContext';
 import { fadeUp, viewportOnce } from '@/utils/motion';
 import { ContactForm } from './contact/ContactForm';
+import { WhatsAppIcon } from '@/components/layout/SocialIcons';
 
 export function Contact() {
+  const region = useRegion();
+
   return (
     <section id="contact" className="relative overflow-hidden bg-[#0B1120] py-24 lg:py-32">
       <div
@@ -23,7 +26,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Let's Build Something Exceptional Together"
-          description="Tell us about your project and our team will get back to you with a personalized quotation."
+          description={`Tell us about your project and our ${region.label} team will get back to you with a personalized quotation.`}
           light
         />
 
@@ -37,7 +40,9 @@ export function Contact() {
           >
             <GlassCard dark className="flex h-full flex-col gap-8 p-8">
               <div>
-                <h3 className="text-lg font-bold text-white">Company Information</h3>
+                <h3 className="text-lg font-bold text-white">
+                  {region.flag} {region.label} Office
+                </h3>
                 <p className="mt-2 text-sm text-slate-400">
                   Reach out directly or send us your requirements — we typically respond within
                   one business day.
@@ -47,10 +52,24 @@ export function Contact() {
               <div className="flex flex-col gap-5">
                 <div className="flex gap-3">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-300">
+                    <MapPin size={16} />
+                  </span>
+                  <div className="flex flex-col gap-0.5">
+                    <p className="text-sm font-semibold text-white">Office Address</p>
+                    {region.addressLines.map((line) => (
+                      <p key={line} className="text-sm text-slate-300">
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-300">
                     <Mail size={16} />
                   </span>
                   <div className="flex flex-col gap-1">
-                    {company.emails.map((email) => (
+                    {region.emails.map((email) => (
                       <a
                         key={email}
                         href={`mailto:${email}`}
@@ -67,7 +86,7 @@ export function Contact() {
                     <Phone size={16} />
                   </span>
                   <div className="flex flex-col gap-1">
-                    {company.phones.map((phone) => (
+                    {region.phones.map((phone) => (
                       <a
                         key={phone}
                         href={`tel:${phone.replace(/\s+/g, '')}`}
@@ -80,16 +99,19 @@ export function Contact() {
                 </div>
 
                 <div className="flex gap-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/15 text-blue-300">
-                    <MapPin size={16} />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-300">
+                    <WhatsAppIcon width={16} height={16} />
                   </span>
                   <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-white">Service Regions</p>
-                    {company.regions.map((region) => (
-                      <p key={region} className="text-sm text-slate-300">
-                        {region}
-                      </p>
-                    ))}
+                    <p className="text-sm font-semibold text-white">WhatsApp</p>
+                    <a
+                      href={`https://wa.me/${region.whatsappDigits}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-slate-300 hover:text-emerald-300"
+                    >
+                      {region.whatsappDisplay}
+                    </a>
                   </div>
                 </div>
 
@@ -99,7 +121,7 @@ export function Contact() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-white">Business Hours</p>
-                    <p className="text-sm text-slate-300">{company.businessHours}</p>
+                    <p className="text-sm text-slate-300">{region.businessHours}</p>
                   </div>
                 </div>
               </div>

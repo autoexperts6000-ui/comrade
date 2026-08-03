@@ -2,16 +2,19 @@ import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { industries } from '@/data/industries';
+import { useRegion } from '@/context/RegionContext';
 import { fadeUp, staggerContainer, viewportOnce } from '@/utils/motion';
 
 export function Industries() {
+  const region = useRegion();
+
   return (
     <section id="industries" className="bg-white py-24 lg:py-32">
       <Container>
         <SectionHeading
           eyebrow="Industries"
           title="Purpose-Built Solutions for Every Sector"
-          description="COMRADE has delivered specialized software across the industries that power the UAE and India's economies."
+          description={`COMRADE has delivered specialized software across the industries that power ${region.economyPhrase}.`}
         />
 
         <motion.div

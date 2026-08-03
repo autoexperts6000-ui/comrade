@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Hero } from '@/components/sections/Hero';
 import { TrustBar } from '@/components/sections/TrustBar';
 import { Services } from '@/components/sections/Services';
+import { useRegionSEO } from '@/hooks/useRegionSEO';
 
 const WhyChoose = lazy(() =>
   import('@/components/sections/WhyChoose').then((m) => ({ default: m.WhyChoose })),
@@ -29,6 +30,8 @@ const Contact = lazy(() =>
 const SectionFallback = () => <div className="h-40 w-full" aria-hidden />;
 
 export default function Home() {
+  useRegionSEO();
+
   return (
     <>
       <Hero />

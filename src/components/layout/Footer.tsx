@@ -1,10 +1,12 @@
-import { Mail, Phone, Heart } from 'lucide-react';
+import { Mail, Phone, MapPin, Heart } from 'lucide-react';
 import { company } from '@/data/company';
 import { services } from '@/data/services';
 import { industries } from '@/data/industries';
+import { useRegion } from '@/context/RegionContext';
 import { Container } from '@/components/ui/Container';
 import { Logo } from './Logo';
 import { LinkedInIcon, InstagramIcon, TwitterIcon, FacebookIcon } from './SocialIcons';
+import { RegionSwitchLink } from './RegionSwitch';
 
 const socialLinks = [
   { icon: LinkedInIcon, href: company.social.linkedin, label: 'LinkedIn' },
@@ -15,6 +17,7 @@ const socialLinks = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const region = useRegion();
 
   return (
     <footer className="relative overflow-hidden bg-[#0B1120] text-slate-300">
@@ -27,8 +30,9 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-2">
             <Logo light />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-slate-400">
-              COMRADE builds enterprise software, mobile apps, CRM solutions, and secure digital
-              platforms for ambitious businesses across the UAE and India.
+              Since {company.foundedYear}, COMRADE has built enterprise software, ERP systems,
+              mobile apps, CRM solutions, and secure digital platforms for ambitious businesses
+              in {region.countryName}.
             </p>
             <div className="mt-6 flex items-center gap-3">
               {socialLinks.map((s) => (
@@ -81,7 +85,11 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
             <ul className="mt-5 flex flex-col gap-3">
-              {company.emails.map((email) => (
+              <li className="flex items-start gap-2 text-sm text-slate-400">
+                <MapPin size={15} className="mt-0.5 shrink-0" />
+                <span>{region.addressLines.join(', ')}</span>
+              </li>
+              {region.emails.map((email) => (
                 <li key={email}>
                   <a
                     href={`mailto:${email}`}
@@ -92,7 +100,7 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              {company.phones.map((phone) => (
+              {region.phones.map((phone) => (
                 <li key={phone}>
                   <a
                     href={`tel:${phone.replace(/\s+/g, '')}`}
@@ -111,6 +119,7 @@ export function Footer() {
           <p className="text-sm text-slate-500">
             &copy; {year} COMRADE. All rights reserved.
           </p>
+          <RegionSwitchLink />
           <p className="flex items-center gap-1.5 text-sm text-slate-500">
             Made with <Heart size={14} className="fill-blue-500 text-blue-500" /> by COMRADE
           </p>

@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone } from 'lucide-react';
 import { navLinks } from '@/data/nav';
-import { company, CTA } from '@/data/company';
+import { CTA } from '@/data/company';
+import { useRegion } from '@/context/RegionContext';
 import { Button } from '@/components/ui/Button';
+import { RegionSwitchLink } from './RegionSwitch';
 
 interface MobileMenuProps {
   onClose: () => void;
 }
 
 export function MobileMenu({ onClose }: MobileMenuProps) {
+  const region = useRegion();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -49,17 +53,18 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
             </Button>
           </a>
           <a
-            href={`mailto:${company.emails[0]}`}
+            href={`mailto:${region.emails[0]}`}
             className="flex items-center gap-3 text-sm font-medium text-slate-600"
           >
-            <Mail size={16} className="text-blue-600" /> {company.emails[0]}
+            <Mail size={16} className="text-blue-600" /> {region.emails[0]}
           </a>
           <a
-            href={`tel:${company.phones[0].replace(/\s+/g, '')}`}
+            href={`tel:${region.phones[0].replace(/\s+/g, '')}`}
             className="flex items-center gap-3 text-sm font-medium text-slate-600"
           >
-            <Phone size={16} className="text-blue-600" /> {company.phones[0]}
+            <Phone size={16} className="text-blue-600" /> {region.phones[0]}
           </a>
+          <RegionSwitchLink />
         </div>
       </motion.div>
     </motion.div>

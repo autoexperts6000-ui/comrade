@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
+import { RegionSwitchBadge } from './RegionSwitch';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -40,19 +41,20 @@ export function Navbar() {
         <Container className="flex items-center justify-between">
           <Logo />
 
-          <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-5 xl:flex">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-slate-600 transition-colors hover:text-blue-600"
+                className="whitespace-nowrap text-sm font-medium text-slate-600 transition-colors hover:text-blue-600"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-3 xl:flex">
+            <RegionSwitchBadge />
             <a href="#contact">
               <Button variant="primary" size="sm">
                 {CTA.primary}
@@ -65,7 +67,7 @@ export function Navbar() {
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-premium lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-premium xl:hidden"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>

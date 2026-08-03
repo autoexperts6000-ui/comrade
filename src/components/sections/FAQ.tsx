@@ -4,10 +4,17 @@ import { Plus } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { faqItems } from '@/data/faq';
+import { useRegion } from '@/context/RegionContext';
 import { fadeUp, staggerContainer, viewportOnce } from '@/utils/motion';
 
 export function FAQ() {
+  const region = useRegion();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const resolvedItems = faqItems.map((item) => ({
+    question:
+      typeof item.question === 'function' ? item.question(region.countryName) : item.question,
+    answer: typeof item.answer === 'function' ? item.answer(region.countryName) : item.answer,
+  }));
 
   return (
     <section id="faq" className="bg-white py-24 lg:py-32">
@@ -21,7 +28,7 @@ export function FAQ() {
           viewport={viewportOnce}
           className="mt-14 flex flex-col gap-4"
         >
-          {faqItems.map((item, index) => {
+          {resolvedItems.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <motion.div

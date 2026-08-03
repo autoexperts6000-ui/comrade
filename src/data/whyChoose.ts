@@ -8,9 +8,9 @@ export interface WhyChooseStat {
 }
 
 export const whyChooseStats: WhyChooseStat[] = [
+  { value: 500, suffix: '+', label: 'Businesses Served' },
+  { value: 12, suffix: '+', label: 'Industries Served' },
   { value: 100, suffix: '%', label: 'Responsive Development' },
-  { value: 60, suffix: '+', label: 'Projects Delivered' },
-  { value: 10, suffix: '+', label: 'Industries Served' },
   { value: 99, suffix: '%', label: 'Client Satisfaction' },
 ];
 

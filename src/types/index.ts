@@ -39,11 +39,6 @@ export interface Testimonial {
   initials: string;
 }
 
-export interface FaqItem {
-  question: string;
-  answer: string;
-}
-
 export interface Stat {
   value: number;
   suffix: string;

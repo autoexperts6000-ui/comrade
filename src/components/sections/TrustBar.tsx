@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
+import { useRegion } from '@/context/RegionContext';
 
 const placeholders = [
   'Nexora',
@@ -13,13 +14,14 @@ const placeholders = [
 ];
 
 export function TrustBar() {
+  const region = useRegion();
   const loop = [...placeholders, ...placeholders];
 
   return (
     <section className="border-y border-slate-100 bg-white py-12">
       <Container>
         <p className="mb-8 text-center text-sm font-semibold uppercase tracking-widest text-slate-400">
-          Trusted by Businesses Across UAE &amp; India
+          Trusted by Businesses Across {region.countryName}
         </p>
       </Container>
 

@@ -1,15 +1,18 @@
-import type { FaqItem } from '@/types';
+export interface FaqItemTemplate {
+  question: string | ((countryName: string) => string);
+  answer: string | ((countryName: string) => string);
+}
 
-export const faqItems: FaqItem[] = [
+export const faqItems: FaqItemTemplate[] = [
   {
     question: 'How long does software development take?',
     answer:
       'Timelines vary based on scope and complexity — a typical MVP takes 6–10 weeks, while enterprise platforms can take 3–6 months. We provide a detailed timeline after the requirement analysis phase.',
   },
   {
-    question: 'Do you work with UAE companies?',
-    answer:
-      'Yes. COMRADE actively serves businesses across the United Arab Emirates and India, with dedicated teams familiar with regional compliance and market requirements.',
+    question: (countryName) => `Do you work with local ${countryName} companies?`,
+    answer: (countryName) =>
+      `Yes. COMRADE has a dedicated local team in ${countryName}, familiar with regional compliance and market requirements, serving businesses since 1990.`,
   },
   {
     question: 'Do you provide support?',

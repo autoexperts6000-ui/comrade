@@ -2,12 +2,16 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
-import { CTA } from '@/data/company';
+import { CTA, company } from '@/data/company';
+import { useRegion } from '@/context/RegionContext';
 import { fadeUp } from '@/utils/motion';
 import { HeroBackground } from './hero/HeroBackground';
 import { HeroMockup } from './hero/HeroMockup';
 
 export function Hero() {
+  const region = useRegion();
+  const yearsInBusiness = new Date().getFullYear() - company.foundedYear;
+
   return (
     <section
       id="home"
@@ -25,7 +29,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-300 backdrop-blur"
             >
               <Sparkles size={13} />
-              Enterprise Software Partner · UAE &amp; India
+              {region.heroBadge}
             </motion.div>
 
             <motion.h1
@@ -49,9 +53,9 @@ export function Hero() {
               animate="visible"
               className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg"
             >
-              From enterprise software to mobile apps, security testing, CRM solutions and
-              digital marketing, COMRADE helps businesses across UAE and India transform
-              digitally.
+              From enterprise software and ERP systems to mobile apps, security testing, CRM
+              solutions and digital marketing, COMRADE has helped businesses in {region.countryName}{' '}
+              transform digitally since {company.foundedYear}.
             </motion.p>
 
             <motion.div
@@ -81,10 +85,11 @@ export function Hero() {
               className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-slate-400"
             >
               <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> 10+ Industries Served
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> {yearsInBusiness}+
+                Years in Business
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> 27+ Technologies
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> 12+ Industries Served
               </span>
               <span className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Enterprise-Grade
