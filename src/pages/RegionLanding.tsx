@@ -28,9 +28,9 @@ export default function RegionLanding() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-400 shadow-glow"
+          className="mb-6 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white p-1.5 shadow-glow"
         >
-          <span className="text-2xl font-black text-white">C</span>
+          <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="COMRADE" className="h-full w-full object-contain" />
         </motion.div>
 
         <motion.div
