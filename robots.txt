@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://autoexperts6000-ui.github.io/comrade/sitemap.xml
